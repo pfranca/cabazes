@@ -1,0 +1,160 @@
+
+<div id="deliveries" class="container-fluid">
+  <div class="card" style="margin-bottom:20px;">
+    {{#if ongoing}}
+      <div class="card-header" style="font-weight: bold;">
+        Evento a Decorrer
+      </div>
+      <div class="card-body">
+        <div id="current_delivery">
+          <div class="row" style="margin-bottom:2em;">
+            <div class="col-sm-9">
+              <div class="delivery-name" style="margin-left:2em;">
+                <h1 style="font-size:4em;"> {{ongoing.eventName}} </h1>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="row" style="margin-bottom:1em;">
+                <text style="font-weight:bold;">Criado em: &nbsp</text>
+                {{ongoing.created}}
+              </div>
+              <form name="dashboardForm" method="POST">
+              <div class="row">
+                <a class="btn btn-danger" style="color:white;" id="finalizarEntregaButtonSubmit" data-toggle="modal" data-target="#finalizarEntregaModal" data-nome="{{ongoing.eventName}}">Finalizar Entrega</a>
+                <input class="btn btn-danger" type="submit" id="finalizarEntregaButtonSubmitInput" style="display:none;" formaction="/terminarEvento" value="Finalizar Entrega">
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              Familias Participantes
+            </div>
+            <div class="card-body">
+              <div class="row" style="margin-bottom:1em;">
+                <div class="col-12">
+                  <div class="check_all">
+                    <i class="btn btn-secondary" style="float:right;" onclick="{{#each ongoing.Deliveries}} changeCheck('check_fam_{{familyId.id}}');{{/each}}">Selecionar Todas</i>
+                  </div>
+                </div>
+              </div>
+              <div class="families" style="margin-bottom:1em;">
+                <input type="number" style="display:none" name="eventId" value="{{ongoing.id}}">
+              {{#each ongoing.Deliveries}}
+                <div id="deliveries-list">
+
+                  <div class="card" onclick="changeCheck('check_fam_{{familyId.id}}', '{{familyId.morada}}');">
+                    <div class="card-header" style="padding:10px;">
+                      <div class="row">
+                        <div class="col-sm-11">
+                          <div class="family-name">
+                            <button class="btn btn-link" onclick="location.href='/families/{{familyId.id}}';"> Família {{ familyId.nomeChefe }} </button>
+                            {{#if done}}
+                              <i class="fas fa-check" style="color: #7CFC00;"></i>
+                            {{else}}
+                              <i class="fas fa-times" style="color: #FF0000;"></i>
+                            {{/if}}
+                          </div>
+                        </div>
+                        <div class="col-sm-1">
+                            <div class="select_checkBox">
+                              <input class="form-control form-control-sm checkbox-custom-label dashFam" id="check_fam_{{familyId.id}}" onclick="changeCheck('check_fam_{{familyId.id}}');" type="checkbox" name="idFam" value="{{familyId.id}}">
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {{/each}}
+            </div>
+              <div class="row" style="float:right;">
+
+                  <input class="btn btn-success" type="submit" id="deliveredBtn" style="margin:0.4em;" formaction="/delivered" value="Entregue">
+
+                  <input class="btn btn-primary" type="submit" id="imprimirPdfBtn" style="margin:0.4em;" formaction="/imprimirPdf" value="Exportar .PDF">
+
+                  <input class="btn btn-primary" type="button" id="directions-button" style="margin:0.4em;" onclick="getDirections();" value="Direções para Entregar">
+              </div>
+              </form>
+            </div>
+          </div>
+    {{else}}
+      <!-- SE NAO HOUVER NENHUMA ENTREGA A DECORRER-->
+      <div class="card">
+        <div class="card-header" style="font-weight: bold;margin-bottom:20px;">
+          Nenhuma entrega a decorrer
+        </div>
+        <div class="card-body">
+          <button class="btn btn-success" type="button" id="addDeliveryButton" onclick="location.href='/deliveries/addEvent';">
+            <i class="fas fa-plus"></i> Nova Entrega
+          </button>
+        </div>
+    </div>
+    {{/if}}
+
+  </div>
+</div>
+</div>
+
+{{> finalizarEntregaModal }}
+
+<script>
+let selectedFamilies = {}
+
+function changeCheck(id, morada){
+    let check = document.getElementById(id);
+
+    if(check.checked == true){
+      delete selectedFamilies[id];
+      check.checked = false;
+    }else if(check.checked == false){
+      selectedFamilies[id] = morada;
+      check.checked = true;
+    }
+}
+
+function getDirections() {
+
+  const destination = escape(selectedFamilies[Object.keys(selectedFamilies)[0]]);
+
+  let queryString = `&destination=${destination}&waypoints=`;
+
+  for (let i = 1; i < Object.keys(selectedFamilies).length; i++){
+    const morada = selectedFamilies[Object.keys(selectedFamilies)[i]];
+
+    queryString += escape(morada);
+  }
+
+  const queryLink = `https://www.google.com/maps/dir/?api=1${queryString}`;
+
+  window.open(queryLink);    
+}
+</script>
+
+<script>
+$(window).load(function(){
+    $('#finalizarEntregaModal').modal('show');
+});
+
+
+$("#imprimirPdf").click(function(event) {
+    var allFams = $('.dashFam:checkbox:checked')
+    console.log(allFams);
+    var allFamIds = [];
+    for (var i = 0, n = allFams.length; i < n; ++i) {
+        var el = allFams[i];
+        if (el.value) { allFamIds.push(el.value); }
+    }
+
+    $.ajax({
+            url: '/imprimirPdf',
+            type: 'POST',
+            data: JSON.stringify({allFamIds: allFamIds}),
+            dataType: 'json',
+            success: function(data){
+                console.log("AJAX");
+                console.log(data);
+            }
+    });
+});
+
+</script>

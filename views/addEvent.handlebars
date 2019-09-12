@@ -1,0 +1,175 @@
+<form id="addEventForm" name="addEventForm" action="/deliveries/addEvent" method="post" onSubmit="return (validate());">
+
+    <div class="card" style="margin-bottom: 20px;">
+      <div class="card-header" style="font-weight:bold;"> Nome do Evento </div>
+      <div class="card-body">
+        <div class="form-group">
+          <label>Nome</label>
+          <input class="form-control form-control-sm" type="text" name="nomeEvento" required>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="card " style="margin-bottom: 20px;">
+        <div class="card-header" style="font-weight:bold;">Famílias Participantes </div>
+        <div class="card-body">
+          <div class="row" style="margin-bottom: 20px;">
+              <div class="col-sm-6">
+                  <!-- search input -->
+                  <div class="input-group">
+                      <input id="input_search" type="text" class="form-control" placeholder="Pesquisar por" aria-label="Pesquisar por"
+                          aria-describedby="basic-addon2">
+                      <div class="input-group-append">
+                          <button class="btn btn-secondary" onclick="search(event)">Pesquisar</button>
+                      </div>
+                  </div>
+
+              </div>
+              <div class="col-sm-6 text-right">
+                  <i class="btn btn-secondary" onclick="{{#each families}} changeCheck('check_fam_{{id}}'); {{/each}}">Selecionar Todas</i>
+              </div>
+          </div>
+
+
+          <div id="families-list">
+            {{#each families}}
+            <div class="card" onclick="changeCheck('check_fam_{{id}}');">
+              <div class="card-header" style="padding:10px;">
+                <div class="row">
+                  <div class="col-10">
+                    <div class="family-name">
+                      <button class="btn btn-link" onclick="location.href='/families/{{id}}';"> Família {{ nomeChefe }} </button>
+                    </div>
+                </div>
+                <div class="col-2">
+                  <div>
+                  <label class="family_checkBox">
+                    <input class="form-control form-control-sm checkbox-custom-label" id="check_fam_{{id}}" type="checkbox" name="idFam" value="{{id}}">
+                    <i class="fas fa-check-circle checked" style="font-size:1.8em;color:#7CFC00;"></i>
+                    <i class="fas fa-check-circle unchecked" style="font-size:1.8em;color:gray;"></i>
+                  </label>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {{/each}}
+          </div>
+
+        <div class="invalid-feedback">
+          Por favor selecione uma Família.
+        </div>
+      </div>
+    </div>
+
+
+  <input id="create_event_button" class="btn btn-primary" type="submit" style="float:right;" value="Criar Evento">
+
+</form>
+
+
+<script>
+
+function search(event) {
+  event.preventDefault();
+  // Declare variables
+  var input,txtValue,con;
+  input = document.getElementById('input_search');
+  filter = input.value.toUpperCase();
+  con = document.getElementById('families-list');
+  con.innerHTML = "";
+  {{#each families}}
+    show = 0;
+  if ("{{nomeChefe}}".toUpperCase().indexOf(filter) > -1) {
+    show = 1;
+  } else {
+    show = 0;
+  }
+
+  // se passar na Pesquisa
+  if(show == 1){
+
+  var html = '<div class="card" onclick="changeCheck(\'check_fam_{{id}}\');"> '
+              + '<div class="card-header" style="padding:10px;">'
+              +  '<div class="row">'
+              +   ' <div class="col-10">'
+              +     '  <div class="family-name">'
+              +       '  <button class="btn btn-link" onclick="location.href=\'/families/{{id}}\';"> Família {{ nomeChefe }} </button> '
+              +      ' </div>'
+              +    '</div>'
+              +  ' <div class="col-2">'
+              +   ' <div>'
+              +    ' <label class="family_checkBox">'
+              +      ' <input class="form-control form-control-sm checkbox-custom-label" id="check_fam_{{id}}" type="checkbox" name="idFam" value="{{id}}">'
+              +       ' <i class="fas fa-check-circle checked" style="font-size:1.8em;color:#7CFC00;"></i>'
+              +      '  <i class="fas fa-check-circle unchecked" style="font-size:1.8em;color:gray;"></i>'
+              +     ' </label>'
+              +   ' </div>'
+              +   ' </div>'
+              +  '</div>'
+              + '</div>'
+              +'</div>';
+
+    con.innerHTML += html;
+}
+
+  {{/each}}
+
+}
+
+function validateInput(isValid, formInput){
+  if (!isValid){
+    formInput.classList.remove("is-valid");
+    formInput.classList.add("is-invalid");
+  } else {
+    formInput.classList.remove("is-invalid");
+    formInput.classList.add("is-valid");
+  }
+}
+
+let selectedFamilies = {};
+
+function changeCheck(id){
+
+    let check = document.getElementById(id);
+
+    if (check.checked){
+      delete selectedFamilies[id];
+      check.checked = false;
+    } else {
+      selectedFamilies[id] = true;
+      check.checked = true;
+    }
+}
+
+function validate(){
+  let r = true;
+  const form = document.addEventForm;
+
+  /* nome nao e nulo */
+  if (form.nomeEvento.value === ""){
+    validateInput(false, form.nomeEvento);
+    r = false;
+  } else {
+    validateInput(true, form.nomeEvento);
+  }
+
+
+  /*Há pelo menos uma Familia Selecionada*/
+  if (Object.keys(selectedFamilies).length > 0){
+    r =  true;
+  } else {
+    r = false;
+    alert("É necessário selecionar pelo menos uma família!");
+  }
+
+  // TODO: Para validar as familias selecionadas, e mostrar um texto,
+  // vai ser necessario manipular a DOM (mudar a cor e show/hide elementos html),
+  // pois is-valid e is-invalid e invalid-feedback so funciona para inputs, o que o componente
+  // de selecionar familias nao e!
+
+  return r;
+}
+
+</script>

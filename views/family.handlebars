@@ -1,0 +1,68 @@
+<div class="container-fluid">
+{{#with family}}
+    <!-- breadcrumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/families">Famílias</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ nomeChefe }}</li>
+        </ol>
+    </nav>
+
+    <!-- family info -->
+    {{> family-info }}
+
+    
+
+    <!-- members list -->
+    <div class="card">
+        <div class="card-header">
+            Membros
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+            {{#each People }}
+                <li id="person{{id}}" class="list-group-item">
+                    <b>Nome:</b> {{ name }} &emsp;
+                    <b>Idade:</b> {{ idade }} &emsp;
+                    {{#if escolaridade}}<b>Escolaridade:</b> {{escolaridade}} &emsp;{{else}} {{/if}} 
+                    {{#if rendimentos}}<b>Rendimentos:</b> {{rendimentos}} &emsp; {{/if}}
+                    {{#if doencaBool}}<b>Doencas:</b> {{doencaString}} &emsp; {{/if}}
+                    {{#if deficiente}}<i class="fas fa-wheelchair"></i>{{/if}}
+                    <div class="float-right">
+                        <a href="/persons/edit/{{id}}" title="Editar Pessoa"><i class="fas fa-user-edit"></i></a> &emsp;
+                        <a title="Eliminar Pessoa" data-toggle="modal" data-target="#deletePersonModal" data-nome="{{name}}" data-id="{{id}}"><i class="fas fa-times" style="color:red;"></i></a>
+                    </div>
+                </li>   
+            {{/each}}
+            </ul>
+        </div>
+    </div>
+
+    <div class="card" style="margin-top: 12px;">
+        <div class="card-header">
+            Edits 
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+            {{#each EditFamilyRecords }}
+                <li class="list-group-item">
+                    <b>Data Alteracao:</b>
+                    {{ date }}
+                    </br>
+                    <b>Alteracoes:</b>
+                    {{ changedFields }}
+                    </br>
+                    <b>Comentario associado:</b>
+                    {{ comment }}
+                </li>
+            {{/each}}
+            </ul>
+        </div>
+    </div>
+    <!-- buttons -->
+    {{> family-buttons }}
+{{/with}}
+</div>
+
+{{> modalAddNote }}
+{{> modalDeletePerson }}

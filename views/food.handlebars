@@ -1,0 +1,159 @@
+<div id="food" class="container-fluid">
+    <!-- progress bar comida -->
+    
+{{#if ongoing}}
+
+    <div class="card" style="margin-bottom: 20px;">
+        <div id="cBtitleProgress" class="card-header">
+            Progresso geral
+        </div>
+
+        <div id="cB_progressFood" class="card-body">
+            <div class="progress" style="position:relative;">
+                <div class="progress-bar progress-bar-striped progress-bar-animated active" role="progressbar" style="width: {{percentagem}}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                <text class="progressbar_text" style="position:absolute; text-align: center; width: 100%;">{{numeroTotalStock}}/{{numeroTotalNecessario}}</text>
+            </div>
+        </div>
+    </div>
+    <!-- tabela com tipos de comida -->
+    <div class="card" style="margin-bottom: 20px;">
+        <div class="card-body">
+            <div class="row table-responsive-sm"
+                style="padding: 8px; padding-top: 20px;">
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>
+                                Categoria
+                            </th>
+
+                            <th>
+                                Quantidade
+                            </th>
+
+                            <th>
+                                Progresso
+                            </th>
+
+                            <th>
+                                Opções
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      {{#each food}}
+                        <tr>
+                            <td>
+                                {{ name }}
+                            </td>
+
+                            <td>
+                                {{ quantity }}
+                            </td>
+
+                            <td>
+                                <div class="progress" style="margin-top: 4px;position:relative;">
+                                    <div class="progress-bar bg-success progress-bar-striped" role="progressbar" style="width: {{percent}}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <text class="progressbar_text" style="position:absolute; text-align: center; width: 100%;">{{ quantity }}/{{needs}}</text>
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="row">
+                                  <form class="quantity_update" name="quantity_updateForm" method="post">
+                                    <input  type="number" step="1" min="0" placeholder="0" value="1" name="quantityToUpdate" style="width: 80px;">
+                                    <button class="btn btn-primary" type="submit" formaction="/food/{{id}}/add">
+                                        <i class="fas fa-plus-circle"></i>
+                                    </button>
+                                    <button class="btn btn-primary" type="submit" formaction="/food/{{id}}/sub" onclick="return(validate('{{quantity}}',quantityToUpdate.value));">
+                                        <i class="fas fa-minus-circle"></i>
+                                    </button>
+                                  </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {{else}}
+
+  <!-- SE NAO HOUVER NENHUMA ENTREGA A DECORRER-->
+        <div class="card" style="margin-bottom: 20px;">
+          <div class="card-header" style="font-weight: bold;margin-bottom:20px;">
+            Nenhuma entrega a decorrer
+          </div>
+          <div class="card-body">
+            <button class="btn btn-success" type="button" id="addDeliveryButton" onclick="location.href='/deliveries/addEvent';">
+              <i class="fas fa-plus"></i> Nova Entrega
+            </button>
+          </div>
+      </div>
+
+      <div class="card" style="margin-bottom: 20px;">
+          <div class="card-header" style="font-weight: bold;" >
+              Alimentos em Stock
+          </div>
+        <div class="card-body">
+            <div class="row table-responsive-sm"
+                style="padding: 8px; padding-top: 20px;">
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>
+                                Categoria
+                            </th>
+
+                            <th>
+                                Quantidade
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      {{#each food}}
+                        <tr>
+                            <td>
+                                {{ name }}
+                            </td>
+
+                            <td>
+                                {{ quantity }}
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+  {{/if}}
+</div>
+  
+            
+
+<script>
+/**
+Valida se o user está a tentar subtrair mais do que o que há
+*/
+function validate(quantity , quantityToUpdate){
+
+      if (parseInt(quantity,10) < parseInt(quantityToUpdate,10)){
+        alert('Está a tentar subtrair uma quantidade maior do que a existente!');
+        return false;
+      }else{
+        return true;
+      }
+
+}
+
+    function search_input() {
+        const input = document.getElementById("search-input").search;
+
+        if (input.value && input.value != "") return true;
+
+        return false;
+    }
+
+</script>

@@ -1,0 +1,36 @@
+<div id="event-page" class="container-fluid">
+  <div id="row_event-page" class="row" style="margin-bottom: 20px;">
+    <div class="col-8">
+      <text style="font-weight:bold;">Criado em:&nbsp</text>
+      {{created}}
+    </div>
+    <div id="finished_data" class="col-3">
+      <text style="font-weight:bold;">Concluído em:&nbsp</text>
+      {{finished}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      <div class="card" style="margin-bottom: 20px;">
+        <div class="card-header" style="font-weight:bold;">Famílias Participantes </div>
+        <div class="card-body">
+          {{#each families}}
+            <div id="families-list">
+              <div class="card" onclick="location.href='/families/{{id}}">
+                <div class="card-header" style="padding:10px;">
+                  <div class="row">
+                    <div class="col-11">
+                      <div class="family-name">
+                        <button class="btn btn-link"> Família {{ nomeChefe }} </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

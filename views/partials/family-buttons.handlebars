@@ -1,0 +1,56 @@
+<div id="family-buttons">
+        <button id="mapsButton" class="btn btn-secondary" onclick="return (goToLocation('{{morada}}'));">
+            <div class="row">
+                <div id="icon_div" class="col-sm">
+                    <i class="fas fa-truck"></i>
+                </div>
+
+                <div class="col-sm" id="text_button">
+                    Direções para entrega
+                </div>
+            </div>
+        </button>
+        <button id="edit_button" type="button" class="btn btn-default" onclick="location.href='/families/update-info/{{id}}'">
+            <div class="row">
+                <div id="icon_div" class="col-sm">
+                    <i class="far fa-edit"></i>
+                </div>
+
+                <div class="col-sm" id="text_button">
+                    Editar
+                </div>
+            </div>
+        </button>
+        <button id="add_button" type="button" class="btn btn-default" onclick="location.href='/persons/add/{{id}}';">
+            <div class="row">
+                <div id="icon_div" class="col-sm">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+
+                <div class="col-sm" id="text_button">
+                    Membro
+                </div>
+            </div>
+        </button>
+        <button id="add_button" type="button" class="btn btn-default" data-toggle="modal" data-target="#addNoteModal" data-nome="{{ nomeChefe }}" data-id="{{ id }}" href="#">
+            <div class="row">
+                <div id="icon_div" class="col-sm">
+                    <i class="fas fa-sticky-note"></i>
+                </div>
+
+                <div class="col-sm" id="text_button">
+                    Adicionar Nota
+                </div>
+            </div>
+        </button>
+</div>
+
+<script>
+    const goToLocation = (morada) => {;
+        const scapedAddress = escape(morada);
+
+        const queryLink = `https://www.google.com/maps/dir/?api=1&destination=${scapedAddress}`;
+
+        window.open(queryLink);    
+    }
+</script>

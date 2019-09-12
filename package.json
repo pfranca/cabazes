@@ -1,0 +1,50 @@
+{
+  "name": "myapp",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon -L --inspect ./bin/www",
+    "up": "node ./bin/www",
+    "test": "mocha test/app_spec.js --exit",
+    "coverage": "nyc mocha test/coverage.js --exit",
+    "coverageGenerateHTML": "nyc --reporter=html --reporter=text mocha test/coverage.js --exit",
+    "migrations": "node_modules/.bin/sequelize db:migrate",
+    "seed": "node_modules/.bin/sequelize db:seed:all",
+    "unseed": "node_modules/.bin/sequelize db:seed:undo:all",
+    "unmigrate": "node_modules/.bin/sequelize db:migrate:undo:all",
+    "lint": "node_modules/.bin/eslint .",
+    "fix": "node_modules/.bin/eslint --fix ."
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "cache-require-paths": "^0.3.0",
+    "cookie-parser": "~1.4.3",
+    "express": "~4.16.0",
+    "express-flash": "git://github.com/RGBboy/express-flash.git",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.6",
+    "hbs": "~4.0.1",
+    "http-errors": "~1.6.2",
+    "jquery": "^3.3.1",
+    "morgan": "~1.9.0",
+    "mysql2": "^1.6.1",
+    "nyc": "^13.1.0",
+    "pdfkit": "^0.8.3",
+    "sequelize": "^4.39.0",
+    "sequelize-cli": "^4.1.1",
+    "uuid": "^3.3.2",
+    "validator": "^10.9.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.0",
+    "eslint": "^5.9.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "mocha": "^5.2.0",
+    "nyc": "^13.1.0"
+  }
+}

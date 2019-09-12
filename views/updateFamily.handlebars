@@ -1,0 +1,254 @@
+<style>
+  #updateFamily .card {
+    margin-bottom: 20px;
+  }
+
+  #updateFamily .card .card-header {
+    font-weight: bold;
+  }
+
+  #updateFamily label {
+    font-size: 14px;
+  }
+
+  #updateFamily #updateFamilyButtons {
+    margin-bottom: 20px;
+  }
+
+</style>
+
+<div id="updateFamily" class="container-fluid">
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="/families/{{family.id}}">Família {{family.nomeChefe}}</a>
+      </li>
+      <li class="breadcrumb-item active" >Editar</li>
+    </ol>
+  </nav>
+
+  <form name="updateFamily" action="/families/update-info/{{family.id}}" method="post" onSubmit="return (validate());">
+    <div class="row">
+      <div class="col-sm">
+        
+        <!-- Responsavel -->
+        <div class="card">
+          <div class="card-header">Informações da Família</div>
+          <div class="card-body">
+                <div class="form-group">
+                  <label>Telefone</label>
+                  <input  name="tlfNumber" type="number" class="form-control" placeholder="{{family.telefone}}" value="{{family.telefone}}" required>
+                  <div class="invalid-feedback">
+                      Número de telefone inválido.
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Morada</label>
+                  <input  name="address" type="text" class="form-control" placeholder="{{family.morada}}" value="{{family.morada}}" required>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="habiMauEstado"  {{#if family.habiMauEstado}} checked {{/if}}> 
+                  <label>Habitação em mau estado</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- subsidios -->
+        <div class="card">
+        <div class="card-header">Apoios / Subsídios </div>
+          <div class="card-body">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="rsi" id="rsi" onchange="value_rsi_hide();" {{#if family.rsiBool}} checked {{/if}}> 
+              <label>RSI</label>
+            </div>
+
+            <div class="form-check">
+              <div id="value_rsi" style="display:none">
+                <label>Valor</label>
+                <input class="form-control form-control-sm" type="number" placeholder="0.00€" name="valor_rsi" step="0.05" value="{{family.rsiInt}}">
+                <div class="invalid-feedback">
+                    Valor inválido.
+                </div>
+              </div>
+            </div>
+
+            <!-- Checkbox Habitação Social -->
+            <div class="form-check" style="padding-bottom: 0.5em;">
+              <input name="socialHab" type="checkbox" id="socialHabOn" class="form-check-input" {{#if family.habSocial}} checked {{/if}}>
+              <label class="form-check-label" for="socialHabOn">
+                Habitação Social
+              </label>
+            </div>
+            <!-- Botões de Cabaz Mensal On/Off -->
+            <div class="form-check" style="padding-bottom: 0.5em;">
+              <input name="mensalCab" type="checkbox" id="mensalCabOn" class="form-check-input" {{#if family.cabazMensal}} checked {{/if}}>
+              <label class="form-check-label" for="socialHabOn">
+                Cabaz Mensal
+              </label>
+            </div>
+            <div class="form-check" style="padding-bottom: 0.5em;">
+              <input name="escalao" type="checkbox" class="form-check-input" {{#if family.escalao}} checked {{/if}}>
+              <label class="form-check-label">
+                Escalão
+              </label>
+            </div>
+            <div class="form-check" >
+              <input name="outroSubsidio" type="checkbox" class="form-check-input" {{#if family.outroSubsidio}} checked {{/if}}>
+              <label class="form-check-label">
+                Outro subsídio
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- necessidades especiais -->
+        <div class="card">
+          <div class="card-body">
+            <h6 class="card-title">Necessidades especiais</h6>
+            <textarea  name="espNeeds" class="form-control" placeholder="{{family.necessidadeEsp}}">{{family.necessidadeEsp}}</textarea>
+          </div>
+        </div>
+        
+      </div>
+
+
+      <div class="col-sm">
+
+        <!-- despesas -->
+        <div class="card">
+          <div class="card-header">Despesas</div>
+          <div class="card-body">
+            <div class="form-group">
+                  <label>Despesas de Habitação</label>
+                  <input  name="habDesps" type="number" class="form-control" placeholder="{{family.despHabitacao}}" value="{{family.despHabitacao}}" required>
+                </div>
+                <div class="form-group">
+                  <label>Despesas de Medicação</label>
+                  <input  name="medDesps" type="number" class="form-control" placeholder="{{family.despMedicacao}}" value="{{family.despMedicacao}}" required>
+                </div>
+                <div class="form-group">
+                <label>Outras Despesas</label>
+                <input  name="otherDesps" type="number" class="form-control" placeholder="{{family.despOutros}}" value="{{family.despOutros}}">
+            </div>
+          </div>
+        </div>
+
+
+        <!-- comentario -->
+        <div class="card">
+          <div class="card-body">
+            <h6 class="card-title">Notas</h6>
+            <textarea  name="comment" class="form-control" placeholder="{{family.comentario}}">{{family.comentario}}</textarea>
+          </div>
+        </div>
+                
+        <!-- comentario edicao -->
+        <div class="card">
+          <div class="card-body">
+            <h6 class="card-title">Comentário da edição</h6>
+            <textarea  name="editComment" class="form-control"></textarea>
+          </div>
+        </div>
+
+        <!-- Botões de Rádio Desativada On/Off -->
+        <div class="card">
+          <div class="card-body">
+            <h6 class="card-title">Outras opções</h6>
+            <div class="form-check">
+              <input name="disable" type="checkbox" id="disabledOn" class="form-check-input"  {{#if family.disable}} checked {{/if}}>
+              <label class="form-check-label" for="disabledOn">
+                Desativar Família
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div id="updateFamilyButtons">
+          <button type="submit" class="btn btn-primary" >Atualizar</button>
+          <a class="btn btn-secondary" href="/families/{{family.id}}">Cancelar</a>
+        </div>
+      </div>
+    </div>
+            
+  </form>
+</div>
+
+
+<script>
+
+   function value_rsi_hide(){
+    var divelement = document.getElementById("value_rsi");
+    const isRsiSelected = document.getElementsByName("rsi")[0]
+
+    if(isRsiSelected.checked){
+      divelement.style.display = "block"
+    }else{
+      divelement.style.display = "none";
+    }
+  }
+
+  window.onLoad = value_rsi_hide("value_rsi")
+
+  
+  function validateInput(isValid, formInput){
+    if (!isValid){
+      formInput.classList.remove("is-valid");
+      formInput.classList.add("is-invalid");
+    } else {
+      formInput.classList.remove("is-invalid");
+      formInput.classList.add("is-valid");
+    }
+  }
+
+  /**
+  Valida o formulário.
+  */
+  function validate(){
+    const form = document.updateFamily;
+
+    let r = true;
+
+    /* telefone */
+    if (form.tlfNumber.value.length != 9){
+      validateInput(false, form.tlfNumber);
+      r = false;
+    } else {
+      validateInput(true, form.tlfNumber);
+    }
+
+    /* RSI */
+    if (form.rsi.checked && form.valor_rsi.value < 0){
+      validateInput(false, form.valor_rsi);
+      r = false;
+    } else {
+      validateInput(true, form.valor_rsi);
+    }
+
+    /* valor hab */
+    if (form.habDesps.value < 0){
+      validateInput(false, form.habDesps);
+      r = false;
+    } else {
+      validateInput(true, form.habDesps);
+    }
+
+    /* valor med */
+    if (form.medDesps.value < 0){
+      validateInput(false, form.medDesps);
+      r = false;
+    } else {
+      validateInput(true, form.medDesps);
+    }
+
+    /* valor outros */
+    if (form.otherDesps.value < 0){
+      validateInput(false, form.otherDesps);
+      r = false;
+    } else {
+      validateInput(true, form.otherDesps);
+    }
+
+    return r;
+  }
+
+</script>

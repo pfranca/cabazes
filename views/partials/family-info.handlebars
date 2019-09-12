@@ -1,0 +1,219 @@
+<div id="family-info">
+     <div class="row">
+        <div id="main_address" class="col-sm">
+            <svg width="16" height="16" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M16 9l-3-3V2h-2v2L8 1 0 9h2l1 5c0 .55.45 1 1
+                            1h8c.55 0 1-.45 1-1l1-5h2zm-4 5H9v-4H7v4H4L2.81 7.69 8 2.5l5.19 5.19L12 14z">
+                </path>
+            </svg>
+
+            <p id="address_p">
+                <!-- chamada à bd -->
+                {{morada}}
+            </p>
+        </div>
+
+        <div id="main_phone" class="col-sm">
+            <svg width="16" height="16" viewBox="0 0 10 16">
+                <path fill-rule="evenodd" d="M9 0H1C.45 0 0 .45 0 1v14c0 .55.45 1 1 1h8c.55
+                            0 1-.45 1-1V1c0-.55-.45-1-1-1zM5 15.3c-.72 0-1.3-.58-1.3-1.3 0-.72.58-1.3 1.3-1.3.72
+                            0 1.3.58 1.3 1.3 0 .72-.58 1.3-1.3 1.3zM9 12H1V2h8v10z">
+                </path>
+            </svg>
+
+            <p id="phone_p">
+                <!-- chamada à bd -->
+                {{telefone}}
+            </p>
+        </div>
+    </div>
+
+    <!-- div -->
+    <div id="block_with_info_about_family" class="row">
+        <!-- Despesas -->
+        <div class="col">
+            <div class="row">
+                <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-title">
+                            Despesas
+                            <!-- total expenses -->
+                            <div class="float-right">
+                                {{math despOutros "+" (math despHabitacao "+" despMedicacao)}}€
+                            </div>
+                        </h6>
+                            <div class="card-text">
+                                <ul>
+                                    <li>
+                                        Habitação: {{despHabitacao}}€
+                                    </li>
+
+                                    <li>
+                                        Medicação: {{despMedicacao}}€
+                                    </li>
+
+                                    <li>
+                                        Outros: {{despOutros}}€
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Apoios/subsidios -->
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="card-title">
+                                Subsídios
+                            </h6>
+                            <div class="card-text">
+                                <ul>
+                                    <li>
+                                        RSI: {{rsiInt}}€
+                                    </li>
+
+                                    <li>
+                                        Habitação Social: {{#if habSocial}} <i class="fas fa-check checkGreen"></i> {{else}} <i class="fas fa-times xRed"></i>  {{/if}}
+                                    </li>
+
+                                    <li>
+                                        Cabaz Mensal: {{#if cabazMensal}} <i class="fas fa-check checkGreen"></i> {{else}} <i class="fas fa-times xRed"></i>  {{/if}}
+                                    </li>
+
+                                    <li>
+                                        Escalao: {{#if escalao}} <i class="fas fa-check checkGreen"></i> {{else}} <i class="fas fa-times xRed"></i>  {{/if}}
+                                    </li>
+
+                                    <li>
+                                        Outros Subsidios: {{#if outroSubsidio}} <i class="fas fa-check checkGreen"></i> {{else}} <i class="fas fa-times xRed"></i>  {{/if}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                <!-- especificar -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Notas -->
+        <div id="div_notes_bout_family" class="col">
+            <div class="card" style="height: 20em; overflow-y: auto;">
+                <div class="card-body">
+                    <h6 class="card-title">
+                        Notas
+                    </h6>
+                    
+                    <ul id="lista_de_notas_{{ id }}">
+                        <!-- especificar -->
+                        {{#each FamilyNotes}}
+                            <li><p class="card-text">
+                                {{note}}
+                            </li></p>
+                        {{/each}}
+                    </ul> 
+
+                    <!-- TODO: A implementar caso seja criada tabela de notas -->
+                    <!-- <ul id="list_of_content">
+                        <li>
+                            nota 1
+                        </li>
+
+                        <li>
+                            nota 2
+                        </li>
+
+                        <li>
+                            nota 3
+                        </li>
+                    </ul> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- necessidades especiais -->
+        <div class="col-sm-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-title">
+                            Necessidades Especiais
+                        </h6>
+
+                        {{#if habiMauEstado}}
+                            <p class="card-text">
+                                Habitacao em Mau Estado
+                            </p>
+                        {{/if}}
+
+                        <p class="card-text">
+                        {{necessidadeEsp}}
+                        </p>
+                <!-- TODO A implementar caso seja criada tabela de necessidades -->
+                <!-- <div id="bottom">
+                    <ul id="list_of_content">
+                        <li>
+                            Necessidade 1
+                        </li>
+
+                        <li>
+                            Necessidade 2
+                        </li>
+
+                        <li>
+                            Necessidade 3
+                        </li>
+
+                        <li>
+                            Necessidade 4
+                        </li>
+                    </ul>
+                </div> -->
+                </div>
+            </div>
+        </div>
+
+        <!-- composição do cabaz -->
+        <!-- TODO Depois de adicionados produtos à BD, atualizar isto-->
+        <div class="col-sm-7">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">
+                        Composição do Cabaz 
+                    </h6>
+
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <b>Açucar:</b> {{needs.acucar}} &emsp;
+                            <b>Aletria:</b> {{needs.aletria}} &emsp;
+                            <b>Arroz:</b> {{needs.arroz}} &emsp;
+                            <b>Azeite:</b> {{needs.azeite}} &emsp;
+                            <b>Bolachas (pack4):</b> {{needs.bolachas}} &emsp; 
+                            <b>Atum:</b> {{needs.atum}} &emsp; 
+                            <b>Salsichas:</b> {{needs.salsichas}} &emsp; 
+                            </br>
+                            <b>Leguminosas:</b> {{needs.leguminosas}} &emsp;
+                            <b>Leite:</b> {{needs.leite}} &emsp;
+                            <b>Massa:</b> {{needs.massa}} &emsp;
+                            <b>Cereais:</b> {{needs.cereais}} &emsp;
+                            <b>Papas:</b> {{needs.papas}} &emsp; 
+                            <b>Oleo:</b> {{needs.oleo}} &emsp; 
+                        </li>   
+                    </ul>
+
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

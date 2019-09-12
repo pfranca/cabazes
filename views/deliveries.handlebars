@@ -1,0 +1,83 @@
+<div id="deliveries" class="container-fluid">
+  <div class="card" style="margin-bottom:20px;">
+    <div class="card-header" style="font-weight: bold;">
+      Entrega a Decorrer
+    </div>
+    <div class="card-body">
+
+      {{#if ongoing}}
+      <div id="current_delivery">
+        <div class="card">
+          <div class="card-header" style="padding:10px;">
+            <div class="row">
+              <div class="col-11">
+                <div class="delivery-name">
+                  <button class="btn btn-link" onclick="location.href='/';"> {{ongoing.eventName}} </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{else}}
+      <button class="btn btn-success" type="button" id="addDeliveryButton" onclick="location.href='/deliveries/addEvent';">
+          <i class="fas fa-plus"></i> Nova Entrega
+      </button>
+      {{/if}}
+
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:20px;">
+    <div class="card-header" style="font-weight: bold;">
+      Entregas Realizadas
+    </div>
+    <div class="card-body" id="deliveriesDone">
+      <div class="row" style="margin-bottom:20px;">
+        <div class="col-sm-6">
+          <!-- search input -->
+                  {{> search-input}}
+        </div>
+        <div class="col-sm-2">
+            <!-- dropdown -->
+            <form class="dropdown" method="GET">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Ordenar
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <button type="submit" name="orderBy" value="name" class="dropdown-item">Ordem alfabética</button>
+                    <button type="submit" name="orderBy" value="data" class="dropdown-item">Ordenado por data</button>
+                </div>
+            </form>
+        </div>
+      </div>
+      <!-- list -->
+      {{#each events}}
+        {{#if hasEnded}}
+          <div id="deliveries-list">
+            <div class="card">
+              <div class="card-header" data-toggle="collapse" data-target="#event-body-{{@index}}" aria-expanded="true" id = "event-header-{{@index}}" style="padding:10px;">
+                <div class="row">
+                  <div class="col-11">
+                    <div class="delivery-name">
+                      <button class="btn btn-link">{{ eventName }} </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="event-body-{{@index}}" class="collapse" aria-labelledby="event-header-{{@index}}" data-parent="#deliveries-list">
+                  <div class="card-body">
+                      {{> event-page }}
+                   </div>
+              </div>
+            </div>
+          </div>
+        {{/if}}
+        {{else}}
+          <div>
+            Não há resultados
+          </div>
+      {{/each}}
+    </div>
+  </div>
+</div>

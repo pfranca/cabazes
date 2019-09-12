@@ -1,0 +1,11 @@
+#addFamForm label {
+    font-size: 14px;
+}
+
+#addFamForm #value_rsi {
+    margin-bottom: 20px;
+}
+
+#addFamForm .card-header {
+    font-weight: bold;
+}

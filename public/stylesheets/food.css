@@ -1,0 +1,12 @@
+#food div#cBtitleProgress.card-header{
+    font-weight: bold;
+}
+
+#food div#cB_progressFood.card-body{
+    padding-bottom: 20px;
+}
+
+#food p#Fcolleted_Fneed{
+    text-align: -webkit-center;
+    margin-bottom: 0px;
+}

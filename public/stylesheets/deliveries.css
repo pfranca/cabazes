@@ -1,0 +1,49 @@
+.sg-replace-icons input[type=radio] + label:before,
+.sg-replace-icons input[type=radio] + label span.sg-icon-target:before,
+.sg-replace-icons input[type=checkbox] + label:before,
+.sg-replace-icons input[type=checkbox] + label span.sg-icon-target:before
+{
+ /* Default font size */
+ /* font-size:1.3em; */
+
+ /* Larger font size */
+ font-size: 25px;
+}
+
+.family_checkBox input[type="checkbox"],
+.family_checkBox .checked {
+    display: none;
+}
+.family_checkBox input[type="checkbox"]:checked ~ .checked
+{
+    display: inline-block;
+}
+
+.family_checkBox input[type="checkbox"]:checked ~ .unchecked
+{
+    display: none;
+}
+
+@media screen and (max-width: 575px){
+  .dropdown{
+    padding-top: 15px;
+  }
+}
+
+@media screen and (max-width: 600px){
+    button#dropdownMenuButton.btn.btn-secondary.dropdown-toggle{
+        width: 100%;
+    }
+
+    div#row_event-page.row{
+        display: block;
+    }
+
+    div#finished_data.col-3{
+        display: initial;
+    }
+
+    input#create_event_button.btn.btn-primary{
+        margin-bottom: 15px;
+    }
+}

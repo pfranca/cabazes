@@ -1,0 +1,276 @@
+  <form id="addFamForm" name="addFamForm" action="/families/addFamily/create" method="post" onSubmit="return (validate());">
+    <div class="row">
+        <div class="col-sm">
+              <div class="card" style="margin-bottom: 20px;">
+                <div class="card-header"> Responsavel da Família </div>
+                <div class="card-body">
+                    <div class="form-group">
+                      <label>Nome</label>
+                      <input class="form-control form-control-sm" type="text" name="nomeResponsavel" required>
+                      <div class="invalid-feedback">
+                        Por favor preencha com o nome do responsável.
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Idade</label>
+                      <input class="form-control form-control-sm" type="number" name="idadeResponsavel" required>
+                      <div class="invalid-feedback">
+                        Idade do responsavel inválida, deve ser maior que 18 anos.
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Rendimentos</label>
+                      <input class="form-control form-control-sm" type="number" placeholder="0.00€" name="rendimentosResponsavel" step="0.05" >
+                      <div class="invalid-feedback">
+                        Valor inválido.
+                      </div>
+                    </div>
+
+
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" name="doencasBool" value="1" id="doencasBool" onchange="value_rsi_hide('doencaString');">
+                      <label>Doenças</label>
+                    </div>
+                    <div class="form-check">
+                      <div id="doencaString" style="display:none">
+                        <label>Quais:</label>
+                        <input class="form-control form-control-sm" type="text"  name="doencaString" >
+                      </div>
+                    </div>
+
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" name="deficiente" value="1" >
+                      <label>Deficiencia</label>
+                    </div>
+
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" name="outros" value="1">
+                      <label>Outros</label>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+            <div class="card" style="margin-bottom: 20px;">
+                <div class="card-header"> Informação Família </div>
+                <div class="card-body">
+                  <div class="form-group">
+                    <label>Telefone</label>
+                    <input class="form-control form-control-sm" type="tel" name="telefone" required>
+                    <div class="invalid-feedback">
+                      Número de telefone inválido.
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Morada</label>
+                    <input class="form-control form-control-sm" type="text" name="morada" required>
+                  </div>
+
+                  <div class="form-check">
+                      <input class="form-check-input" type="checkbox" name="habiMauEstado" value="1">
+                      <label>Habitacao em Mau Estado</label>
+                  </div>
+
+                </div>
+            </div>
+
+            <div class="card" style="margin-bottom: 20px;">
+                <div class="card-header">Apoios / Subsídios </div>
+                <div class="card-body">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" name="rsi" id="rsi" value="1" onchange="value_rsi_hide('value_rsi');">
+                      <label>RSI</label>
+                    </div>
+
+                    <div class="form-check">
+                      <div id="value_rsi" style="display:none">
+                        <label>Valor</label>
+                        <input class="form-control form-control-sm" type="number" placeholder="0.00€" name="valor_rsi" step="0.05">
+                        <div class="invalid-feedback">
+                          Valor inválido.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox"  value="1" name="habitacaoSocial">
+                      <label>Habitação Social</label>
+                    </div>
+
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="1" name="cabazMensal">
+                      <label>Cabaz Mensal</label>
+                    </div>
+
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="1" name="escalao">
+                      <label>Escalao</label>
+                    </div>
+
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="1" name="outroSub">
+                      <label>Outros Subsidios</label>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-sm" >
+
+          <div class="card" style="margin-bottom: 20px;">
+                <div class="card-header"> Despesas </div>
+                <div class="card-body">
+                  <div class="form-group">
+                    <label>Habitação</label>
+                    <input class="form-control form-control-sm" type="number" placeholder="0.00€" name="valor_hab" step="0.05">
+                    <div class="invalid-feedback">
+                      Valor inválido.
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Medicação</label>
+                    <input class="form-control form-control-sm" type="number" placeholder="0.00€" name="valor_med" step="0.05">
+                    <div class="invalid-feedback">
+                      Valor inválido.
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>Outros</label>
+                    <input class="form-control form-control-sm" type="number" placeholder="0.00€" name="valor_outros" step="0.05">
+                    <div class="invalid-feedback">
+                      Valor inválido.
+                    </div>
+                  </div>
+                </div>
+
+          </div>
+
+
+          <div class="card" style="margin-bottom: 20px;">
+              <div class="card-header"> Necessidades Especiais </div>
+                <div class="card-body">
+                    <textarea class="form-control form-control-sm" form="addFamForm" method="post" name="necessEspeciais" rows="5" cols="47"></textarea>
+                </div>
+          </div>
+
+          <div class="card" style="margin-bottom: 20px;">
+              <div class="card-body">
+                <div class="form-group">
+                  <label>Notas</label>
+                  <textarea class="form-control form-control-sm" form="addFamForm" method="post" name="famNotes" rows="5" cols="47"></textarea>
+                </div>
+              </div>
+          </div>
+
+          <input class="btn btn-primary" type="submit" value="Adicionar nova familia">
+        </div>
+    </div>
+    </form>
+</div>
+
+<!--  Function to make the value part of RSI only appear if it's checkbox is checked -->
+<script>
+  function value_rsi_hide(id){
+    var divelement = document.getElementById(id);
+    if(divelement.style.display == "none"){
+      divelement.style.display = "block"
+    }else{
+      divelement.style.display = "none";
+    }
+  }
+
+  function validateInput(isValid, formInput){
+    if (!isValid){
+      formInput.classList.remove("is-valid");
+      formInput.classList.add("is-invalid");
+    } else {
+      formInput.classList.remove("is-invalid");
+      formInput.classList.add("is-valid");
+    }
+  }
+
+  /**
+  Valida o formulário.
+  */
+  function validate(){
+    const form = document.addFamForm;
+
+    let r = true;
+
+    /* nome responsavel */
+    if (form.nomeResponsavel.value == ""){
+      validateInput(false, form.nomeResponsavel);
+      r = false;
+    } else {
+      validateInput(true, form.nomeResponsavel);
+    }
+
+    /* idade responsavel */
+    if (form.idadeResponsavel.value < 18){
+      validateInput(false, form.idadeResponsavel);
+      r = false;
+    } else {
+      validateInput(true, form.idadeResponsavel);
+    }
+
+    /* rendimentos responsavel */
+    if (form.rendimentosResponsavel.value < 0){
+      validateInput(false, form.rendimentosResponsavel);
+      r = false;
+    } else {
+      validateInput(true, form.rendimentosResponsavel);
+    }
+
+
+    /* telefone */
+    if (form.telefone.value.length != 9){
+      validateInput(false, form.telefone);
+      r = false;
+    } else {
+      validateInput(true, form.telefone);
+    }
+
+    /* RSI */
+    if (form.rsi.checked && form.valor_rsi.value < 0){
+      validateInput(false, form.valor_rsi);
+      r = false;
+    } else {
+      validateInput(true, form.valor_rsi);
+    }
+
+    /* valor hab */
+    if (form.valor_hab.value < 0){
+      validateInput(false, form.valor_hab);
+      r = false;
+    } else {
+      validateInput(true, form.valor_hab);
+    }
+
+    /* valor med */
+    if (form.valor_med.value < 0){
+      validateInput(false, form.valor_med);
+      r = false;
+    } else {
+      validateInput(true, form.valor_med);
+    }
+
+    /* valor outros */
+    if (form.valor_outros.value < 0){
+      validateInput(false, form.valor_outros);
+      r = false;
+    } else {
+      validateInput(true, form.valor_outros);
+    }
+
+    return r;
+  }
+
+</script>

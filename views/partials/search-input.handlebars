@@ -1,0 +1,18 @@
+<form id="search-input" class="input-group">
+    <input name="search" value="{{search}}" type="text" class="form-control" placeholder="Pesquisar">
+
+    <div class="input-group-append">
+        <button class="btn btn-secondary" type="submit" onclick="return (search_input());">
+                Pesquisar
+        </button>
+    </div>
+</form>
+
+<script>
+    function search_input() {
+        const input = document.getElementById("search-input").search;
+        if (input.value && input.value != "") return true;
+
+        return true;
+    }
+</script>

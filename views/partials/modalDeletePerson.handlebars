@@ -1,0 +1,65 @@
+<div class="modal fade" id="deletePersonModal" tabindex="-1" role="dialog" aria-labelledby="deletePersonModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deletePersonModalLabel">Something went wrong with this title! Please report this bug!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form>
+        <div class="modal-body">
+            <div class="form-group">
+                <p id="deletePersonInfo">Tem a certeza que pretende eliminar a pessoa <span id="nome_a_eliminar"></span>? Esta accao e irreversivel e podera ter influencia no calculo do score e outros parametros desta familia.</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal" id="deleteMemberButton"> <i class="fas fa-times"></i> Eliminar Membro</button>
+        </div>
+       </form>
+    </div>
+  </div>
+</div>
+
+<script>
+
+    $('#deletePersonModal').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget)
+        let name = button.data('nome')
+        let id = button.data('id')
+        let modal = $(this)
+
+        modal.find('.modal-title').text('Eliminar ' + name);
+        modal.find('#nome_a_eliminar').text(name);
+        modal.find('.modal-body p').data('id',id)
+        
+
+        //Catch ENTER key
+        modal.find('.modal-body').keydown( function(event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                $("#deleteMemberButton").click();
+            }
+        });
+    })
+
+    $( document ).ready(function() {
+
+        // SUBMIT FORM
+        $("#deleteMemberButton").click(function(event) {
+            
+            let id = $("#deletePersonInfo").data('id')
+
+            let ajx = new XMLHttpRequest();
+            ajx.onreadystatechange = function () {
+                $("#person"+$("#deletePersonInfo").data('id')).remove(); 
+            };
+            ajx.open("POST", "/persons/deleteAction/"+$("#deletePersonInfo").data('id'), true);
+            ajx.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            ajx.send();
+            
+        });
+    })
+
+</script>

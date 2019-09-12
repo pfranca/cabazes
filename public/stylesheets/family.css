@@ -1,0 +1,79 @@
+#family-info div#main_address.col-sm,
+#family-info div#main_phone.col-sm{
+    display: flex;
+    margin-right: inherit;
+}
+
+#family-info p#address_p,
+#family-info p#phone_p{
+    margin-left: 4.5px;
+    color: #D91B5C;
+    font-size: 12px;
+}
+
+#family-info .card {
+    width: 100%;
+    height: 90%;
+}
+
+#family-info .card-text {
+    font-size: 14px;
+}
+
+#family-info .card-text ul {
+    list-style: inside;
+}
+
+#family-info .card-text ul li {
+    font-size: 14px;
+}
+
+#family-buttons {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#family-buttons .btn {
+    margin-right: 8px;
+}
+
+#family-buttons button#edit_button.btn.btn-default{
+    border-color: #D91B5C;
+    background-color: #D91B5C;
+    color: white;
+}
+
+#family-buttons button#add_button.btn.btn-default{
+    border-color: green;
+    background-color: green;
+    color: white;
+}
+
+#family-buttons div#icon_div.col-sm{
+    padding-right: 1.5px;
+}
+
+@media screen and (max-width: 600px){
+    button#addFamilyButton.btn.btn-success{
+      width: 100%;
+    }
+
+    div#block_with_info_about_family.row{
+        display: block;
+    }
+
+    div#div_notes_bout_family.col{
+        padding-bottom: 15px;
+    }
+
+    div#family-buttons.row{
+        display:inline-grid;
+    }
+
+    #family-buttons .btn {
+        width: 100%;
+        margin-bottom: 8px;
+        margin-left: 0px;
+        margin-right: 0px
+    }
+}

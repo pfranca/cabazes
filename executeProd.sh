@@ -1,0 +1,1 @@
+npm run unmigrate && npm run migrations && npm run seed && npm run up

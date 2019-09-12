@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        {{title}}
+    </title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <link rel='stylesheet' href='/stylesheets/layout.css' />
+    <link rel='stylesheet' href='/stylesheets/add_family.css' />
+    <link rel='stylesheet' href='/stylesheets/family.css' />
+    <link rel='stylesheet' href='/stylesheets/families.css' />
+    <link rel='stylesheet' href='/stylesheets/food.css' />
+    <link rel='stylesheet' href='/stylesheets/deliveries.css' />
+
+    <!--favicon-->
+    <link rel="icon" href="/images/rot.png">
+
+
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!--
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
+    <!-- icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- navbar -->
+    <nav class="navbar navbar-dark bg-navbar">
+        <a class="navbar-brand" href="/">
+            <img id="logo_rotaract" class="img-responsive" src="/images/white_right.png" alt="logo_rotaract">
+        </a><span class="pull-right clickable mobile-only"><i class="fas fa-bars fas-white" data-toggle="collapse" data-target="#lateral_menu"></i></span>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div id="lateral_menu" class="col-sm-3 col-lg-2 collapse large-only">
+                <h6>
+                    Sessão
+                </h6>
+
+                <ul class="nav flex-column">
+            {{#if user}}
+                <li class="nav-item">
+                    <a class="nav-link" href="/auth/change-password">
+                        {{user.username}}
+                    </a>
+
+                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/auth/logout">
+                            Logout
+                        </a>
+
+                    </li>
+
+
+            </ul>
+                <h6>
+                    Menu
+                </h6>
+
+
+                <ul class="nav  navbar-nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/families">
+                            Famílias
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/food">
+                            Alimentos
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/deliveries">
+                            Entregas
+                        </a>
+                    </li>
+                </ul>
+                {{#ifEquals user.role "admin"}}
+                    <h6>
+                        Administração
+                    </h6>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/auth/create-user">
+                                Criar utilizador
+                            </a>
+                        </li>
+                    </ul>
+                {{/ifEquals}}
+            {{else}}
+                <li class="nav-item">
+                    <a class="nav-link" href="/auth/login">
+                        Login
+                    </a>
+                </li>
+            {{/if}}
+
+        </div>
+        <div class="col-sm-9">
+            <!--Mensagens de alerta-->
+            <div id="alert_messages" style="margin-top: 20px;margin-bottom: 20px">
+            {{#each sessionFlash}}
+                <div class="alert alert-{{type}}" role="alert">
+                    {{message}}
+                </div>
+            {{/each}}
+            </div>
+            <!--        /        -->
+            <div id="content">
+                {{{body}}}
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<!-- footer -->
+<footer class="bg-navbar ">
+    <div class="text-right">
+        2018 LDSO
+    </div>
+</footer>
+
+</html>

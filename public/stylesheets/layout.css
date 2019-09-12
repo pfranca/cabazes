@@ -1,0 +1,108 @@
+.bg-navbar {
+    background-color: #592638;
+}
+
+img#logo_rotaract.img-responsive {
+    width: 15%;
+    height: auto;
+}
+
+div#lateral_menu.col-ms-3{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#lateral_menu {
+    padding-top: 30px;
+    background-color: #760F33;
+    color: white;
+}
+  
+#lateral_menu h6 {
+    font-weight: bolder;
+}
+  
+#lateral_menu ul {
+    margin-bottom: 10px;
+    font-weight: 300;
+    padding-left: 10px;
+}
+  
+#lateral_menu a {
+    color: white;
+    font-size: medium;
+}
+ 
+li#lateral_subtitle.nav-item{
+    padding-left: 30px;
+}
+
+li#lateral_subtitle.nav-item a.nav-link{
+    padding-bottom: 0px;
+}
+
+#content {
+    padding-top: 30px;
+}
+  
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 0.5em;
+    height: 2.5em;
+    color: white;
+}
+
+
+/* responsive */
+
+@media screen and (min-width: 600px){
+    #lateral_menu { 
+      min-height: 58em;
+    }
+    .mobile-only{
+        display:none;
+    }
+    .large-only{
+        display:block !important;
+        visibility:visible;
+    }
+}
+
+@media screen and (max-width: 600px){
+    img#logo_rotaract.img-responsive {
+        width: 50%;
+        height: auto;
+    }
+    
+    #lateral_menu { 
+        position:absolute;
+        z-index:9999;
+    }
+}
+
+    
+
+/* bootstrap */
+
+.btn-primary {
+    border-color: #D91B5C;
+    background-color: #D91B5C;
+    color: white;
+}
+
+.btn-primary:hover {
+    border-color: rgb(252, 110, 159);
+    background-color: rgb(252, 110, 159);
+    color: white;
+}
+
+.fas-white{
+    color:white;
+}
+
+.navbar{
+    flex-wrap:nowrap;
+}

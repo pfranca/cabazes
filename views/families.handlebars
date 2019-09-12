@@ -1,0 +1,73 @@
+<div id="families" class="container-fluid">
+    <div class="card">
+        <!-- <div class="card-body"> -->
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-8">
+                    <!-- search input -->
+                    {{> search-input}}
+                </div>
+                <div id="buttons_div" class="col-sm-2">
+                    <!-- dropdown -->
+                    <form class="dropdown" method="GET">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                                Ordenar
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <button type="submit" name="orderBy" value="name" class="dropdown-item">Ordem alfabética</button>
+                            <button type="submit" name="orderBy" value="score" class="dropdown-item">Score maior para menor</button>
+                        </div>
+                    </form>
+                </div>
+                <div id="buttons_div" class="col-sm-2">
+                    <button class="btn btn-success" type="button" id="addFamilyButton" onclick="location.href='/families/addFamily';">
+                        <i class="fas fa-plus"></i> Nova Família
+                    </button>
+                </div>
+            </div>
+            <!-- list -->
+            <div id="families-list">
+                {{#each families}}
+                <div class="card">
+                    <div class="card-header" data-toggle="collapse" data-target="#family-body-{{@index}}" aria-expanded="true" aria-controls="family-body-{{@index}}" id="family-header-{{@index}}">
+                        <div class="row">
+                        <div class="col-sm-8">
+                            <div class="family-name">
+                                <button class="btn btn-link" data-toggle="tab" onclick="location.href='families/{{id}}';">
+                                    Família {{ nomeChefe }}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="chevron">
+                                <div class="dropdown" data-toggle="collapse" data-target="#family-body-{{@index}}" aria-expanded="true" aria-controls="family-body-{{@index}}">
+                                    <i class="fas fa-caret-down"></i>
+                                </div>
+                            </div>
+                            <div class="family-labels family-score" data-toggle="tab">
+                                score
+
+                                <div>{{ score }}</div>
+                            </div>
+                            <div class="family-labels family-members" data-toggle="tab">
+                                <i class="fas fa-users"></i>
+                                <div>{{ People.length }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <div id="family-body-{{@index}}" class="collapse" aria-labelledby="family-header-{{@index}}" data-parent="#families-list">
+                        <div class="card-body">
+                            {{> family-page }}
+                         </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>
+
+{{> modalAddNote }}

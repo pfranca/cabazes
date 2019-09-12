@@ -1,0 +1,48 @@
+<div class="modal fade" id="finalizarEntregaModal" tabindex="-1" role="dialog" aria-labelledby="finalizarEntregaModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="finalizarEntregaModalLabel">Finalizar Evento</h5>
+      </div>    
+        <div class="modal-body">
+            <div class="form-group">
+                <p id="finalizarEntregaInfo">Tem a certeza que pretende Finalizar o evento {{ongoing.eventName}}? Esta accao e irreversivel e nao sera possivel reabrir o mesmo.</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal" id="finalizarEntregaButton"> <i class="fas fa-times"></i> Finalizar Entrega</button>
+        </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+    $('#finalizarEntregaModal').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget)
+        let name = button.data('nome')
+        let id = button.data('id')
+        let modal = $(this)
+
+        
+
+        //Catch ENTER key
+        modal.find('.modal-body').keydown( function(event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                $("#finalizarEntregaButtonSubmitInput").click();
+            }
+        });
+    })
+
+    $( document ).ready(function() {
+
+        // SUBMIT FORM
+        $("#finalizarEntregaButton").click(function(event) {
+            $('#finalizarEntregaButtonSubmitInput').click()
+
+        });
+    })
+
+</script>
