@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon -L --inspect ./bin/www",
+    "start": "node app.js",
     "up": "node ./bin/www",
     "test": "mocha test/app_spec.js --exit",
     "coverage": "nyc mocha test/coverage.js --exit",
