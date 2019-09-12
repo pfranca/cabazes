@@ -22,11 +22,11 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   User.associate = function (models) {
-    User.hook('beforeCreate', async (user) => {
+    User.addHook('beforeCreate', async (user) => {
       const salt = bcrypt.genSaltSync();
       user.password = bcrypt.hashSync(user.password, salt);
     });
-    User.hook('beforeUpdate', async (user) => {
+    User.addHook('beforeUpdate', async (user) => {
       const salt = bcrypt.genSaltSync();
       user.password = bcrypt.hashSync(user.password, salt);
     });
