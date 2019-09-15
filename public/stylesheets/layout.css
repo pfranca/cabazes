@@ -47,6 +47,7 @@ li#lateral_subtitle.nav-item a.nav-link{
   
 footer {
     position: fixed;
+    display: flex;
     left: 0;
     bottom: 0;
     width: 100%;
