@@ -15,18 +15,32 @@
         <h1 class="card-header">Adicionar Pessoa</h1>
         <form action="/persons/add/{{familyid}}" method="post">
             <div class="card-body">
+
                 <div class="form-group">
                     <label>Nome</label>
                     <input  name="name" type="text" class="form-control" id="firstName" >
                 </div>
+
                 <div class="form-group">
-                    <label>Idade</label>
-                    <input name="age" type="number" class="form-control" id="age">
+                    <label>Data Nascimento</label>
+                    <input name="dateBirth" type="date" class="form-control" id="dateBirth">
                 </div>
+
+                <div class="form-group">
+                    <label>Faixa Etária</label>
+                    <select name="ageGroup" type="text" id="ageGroup">
+                        <option value ="Criança">Criança</option>
+                        <option value ="Adolescente">Adolescente</option>
+                        <option value ="Adulto">Adulto</option>
+                        <option value ="Idoso">Idoso</option>
+                    </select>
+                </div>
+
                 <div class="form-group">
                     <label>Escolaridade</label>
                     <input name = "school" type="number" class="form-control" id="school" >
                 </div>
+                
                 <div class="form-group">
                     <label>Rendimentos</label>
                     <input name = "income" type="number" class="form-control" id="income" >
@@ -36,6 +50,7 @@
                     <input class="form-check-input" type="checkbox" name="doencasBool" value="1" id="doencasBool" onchange="value_rsi_hide('doencaString');"> 
                     <label>Doenças</label>
                 </div>
+
                 <div class="form-check">
                     <div id="doencaString" style="display:none">
                     <label>Quais:</label>
@@ -52,7 +67,6 @@
                     <input class="form-check-input" type="checkbox" name="outros" value="1"> 
                     <label>Outros</label>
                 </div>
-
 
                 <button type="submit" class="btn btn-primary" >Submeter</button>
             </div>

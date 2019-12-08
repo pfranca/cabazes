@@ -40,7 +40,7 @@
                             Despesas
                             <!-- total expenses -->
                             <div class="float-right">
-                                {{math despOutros "+" (math despHabitacao "+" despMedicacao)}}€
+                                {{sum despOutros (sum despOutros despHabitacao)}}€
                             </div>
                         </h6>
                             <div class="card-text">
@@ -117,21 +117,6 @@
                             </li></p>
                         {{/each}}
                     </ul> 
-
-                    <!-- TODO: A implementar caso seja criada tabela de notas -->
-                    <!-- <ul id="list_of_content">
-                        <li>
-                            nota 1
-                        </li>
-
-                        <li>
-                            nota 2
-                        </li>
-
-                        <li>
-                            nota 3
-                        </li>
-                    </ul> -->
                 </div>
             </div>
         </div>
@@ -155,26 +140,6 @@
                         <p class="card-text">
                         {{necessidadeEsp}}
                         </p>
-                <!-- TODO A implementar caso seja criada tabela de necessidades -->
-                <!-- <div id="bottom">
-                    <ul id="list_of_content">
-                        <li>
-                            Necessidade 1
-                        </li>
-
-                        <li>
-                            Necessidade 2
-                        </li>
-
-                        <li>
-                            Necessidade 3
-                        </li>
-
-                        <li>
-                            Necessidade 4
-                        </li>
-                    </ul>
-                </div> -->
                 </div>
             </div>
         </div>
@@ -187,28 +152,41 @@
                     <h6 class="card-title">
                         Composição do Cabaz 
                     </h6>
-
                     <ul class="list-group">
                         <li class="list-group-item">
-                            <b>Açucar:</b> {{needs.acucar}} &emsp;
-                            <b>Aletria:</b> {{needs.aletria}} &emsp;
-                            <b>Arroz:</b> {{needs.arroz}} &emsp;
-                            <b>Azeite:</b> {{needs.azeite}} &emsp;
-                            <b>Bolachas (pack4):</b> {{needs.bolachas}} &emsp; 
-                            <b>Atum:</b> {{needs.atum}} &emsp; 
-                            <b>Salsichas:</b> {{needs.salsichas}} &emsp; 
-                            </br>
-                            <b>Leguminosas:</b> {{needs.leguminosas}} &emsp;
-                            <b>Leite:</b> {{needs.leite}} &emsp;
-                            <b>Massa:</b> {{needs.massa}} &emsp;
-                            <b>Cereais:</b> {{needs.cereais}} &emsp;
-                            <b>Papas:</b> {{needs.papas}} &emsp; 
-                            <b>Oleo:</b> {{needs.oleo}} &emsp; 
+                            <script>
+                              var obj = JSON.parse('{{{needs}}}');
+                            </script>
+                            <b>Açucar:</b> <span id=acucar></span> &emsp;
+                            <b>Aletria:</b> <span id=aletria></span> &emsp;
+                            <b>Arroz:</b> <span id=arroz></span> &emsp;
+                            <b>Azeite:</b> <span id=azeite></span> &emsp;
+                            <b>Bolachas (pack4):</b> <span id=bolachas></span>  &emsp; 
+                            <b>Atum:</b> <span id=atum></span>  &emsp; 
+                            <b>Salsichas:</b> <span id=salsichas></span>  &emsp;
+                            <b>Leguminosas:</b> <span id=leguminosas></span>  &emsp;
+                            <b>Leite:</b> <span id=leite></span>  &emsp;
+                            <b>Massa:</b> <span id=massa></span>  &emsp;
+                            <b>Cereais:</b> <span id=cereais></span>  &emsp;
+                            <b>Papas:</b> <span id=papas></span>  &emsp; 
+                            <b>Oleo:</b> <span id=oleo></span>  &emsp;
+                            <script>
+                                document.getElementById("acucar").innerHTML = obj.acucar;
+                                document.getElementById("aletria").innerHTML = obj.aletria;
+                                document.getElementById("arroz").innerHTML = obj.arroz;
+                                document.getElementById("azeite").innerHTML = obj.azeite;
+                                document.getElementById("bolachas").innerHTML = obj.bolachas;
+                                document.getElementById("atum").innerHTML = obj.atum;
+                                document.getElementById("salsichas").innerHTML = obj.salsichas;
+                                document.getElementById("leguminosas").innerHTML = obj.leguminosas;
+                                document.getElementById("leite").innerHTML = obj.leite;
+                                document.getElementById("massa").innerHTML = obj.massa;
+                                document.getElementById("cereais").innerHTML = obj.cereais;
+                                document.getElementById("papas").innerHTML = obj.papas;
+                                document.getElementById("oleo").innerHTML = obj.oleo;
+                            </script>
                         </li>   
                     </ul>
-
-                    
-                    
                 </div>
             </div>
         </div>

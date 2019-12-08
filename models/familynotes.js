@@ -2,7 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   const FamilyNotes = sequelize.define('FamilyNotes', {
     note: DataTypes.STRING,
-    familyId: DataTypes.UUID,
+    familyId: DataTypes.INTEGER,
   }, {});
   FamilyNotes.associate = (models) => {
     // associations can be defined here

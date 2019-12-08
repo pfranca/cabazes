@@ -288,27 +288,31 @@ router.post('/addFamily/create', async (req, res, next) => {
     famNotes,
   } = req.body;
 
-
-    models.Family.create({
-      nomeChefe: nomeResponsavel,
-      morada,
-      telefone,
-      habiMauEstado,
-      rsiBool: rsi,
-      rsiInt: valor_rsi,
-      habSocial: habitacaoSocial,
-      cabazMensal,
-      escalao,
-      outroSubsidio: outroSub,
-      despHabitacao: valor_hab,
-      despMedicacao: valor_med,
-      despOutros: valor_outros,
-      necessidadeEsp: necessEspeciais,
-      disable: false,
-    }).then( family => {
+  models.Family.create({
+    nomeChefe: nomeResponsavel,
+    morada,
+    telefone,
+    habiMauEstado,
+    rsiBool: rsi,
+    rsiInt: valor_rsi,
+    habSocial: habitacaoSocial,
+    cabazMensal,
+    escalao,
+    outroSubsidio: outroSub,
+    despHabitacao: valor_hab,
+    despMedicacao: valor_med,
+    despOutros: valor_outros,
+    necessidadeEsp: necessEspeciais,
+    disable: false,
+  }).then( family => {
+    models.FamilyNotes.create({
+      familyId: family.id,
+      note: req.body.famNotes,
+    }).then( familynotes => {
       models.Person.create({
         name: nomeResponsavel,
-        idade: req.body.idadeResponsavel,
+        dataNascimento: req.body.dataNascimentoResponsavel,
+        faixaEtaria: req.body.faixaEtariaResponsavel,
         doencaBool: req.body.doencasBool,
         doencaString: req.body.doencaString,
         rendimentos: req.body.rendimentosResponsavel,
@@ -317,10 +321,9 @@ router.post('/addFamily/create', async (req, res, next) => {
         familyId: family.id,
       }).then( person => { 
         res.redirect('/families');
-        });
+      });
     });
- 
-
+  });
 });
 
 

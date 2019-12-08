@@ -3,14 +3,15 @@ module.exports = (sequelize, DataTypes) => {
     'Person',
     {
       name: DataTypes.STRING,
-      idade: DataTypes.INTEGER,
+      dataNascimento: DataTypes.DATEONLY,
+      faixaEtaria: DataTypes.STRING,
       escolaridade: DataTypes.INTEGER,
       doencaBool: DataTypes.BOOLEAN,
       doencaString: DataTypes.STRING,
       rendimentos: DataTypes.INTEGER,
       deficiente: DataTypes.BOOLEAN,
       outros: DataTypes.BOOLEAN,
-      familyId: DataTypes.UUID,
+      familyId: DataTypes.INTEGER,
     },
     {},
   );

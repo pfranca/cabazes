@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     date: DataTypes.STRING,
     changedFields: DataTypes.STRING,
     comment: DataTypes.STRING,
-    familyId: DataTypes.UUID,
+    familyId: DataTypes.INTEGER,
   }, {});
   EditFamilyRecord.associate = function (models) {
     // associations can be defined here

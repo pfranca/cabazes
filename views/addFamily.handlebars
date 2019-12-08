@@ -4,6 +4,7 @@
               <div class="card" style="margin-bottom: 20px;">
                 <div class="card-header"> Responsavel da Família </div>
                 <div class="card-body">
+
                     <div class="form-group">
                       <label>Nome</label>
                       <input class="form-control form-control-sm" type="text" name="nomeResponsavel" required>
@@ -13,11 +14,16 @@
                     </div>
 
                     <div class="form-group">
-                      <label>Idade</label>
-                      <input class="form-control form-control-sm" type="number" name="idadeResponsavel" required>
-                      <div class="invalid-feedback">
-                        Idade do responsavel inválida, deve ser maior que 18 anos.
-                      </div>
+                      <label>Data Nascimento</label>
+                      <input class="form-control form-control-sm" type="date" name="dataNascimentoResponsavel">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Faixa Etária Responsável</label>
+                        <select name="faixaEtariaResponsavel" type="text">
+                            <option value ="Adulto">Adulto</option>
+                            <option value ="Idoso">Idoso</option>
+                        </select>
                     </div>
 
                     <div class="form-group">
@@ -27,7 +33,6 @@
                         Valor inválido.
                       </div>
                     </div>
-
 
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox" name="doencasBool" value="1" id="doencasBool" onchange="value_rsi_hide('doencaString');">
@@ -59,8 +64,8 @@
                 <div class="card-header"> Informação Família </div>
                 <div class="card-body">
                   <div class="form-group">
-                    <label>Telefone</label>
-                    <input class="form-control form-control-sm" type="tel" name="telefone" required>
+                    <label>Telefone/Telemóvel</label>
+                    <input class="form-control form-control-sm" type="tel" name="telefone">
                     <div class="invalid-feedback">
                       Número de telefone inválido.
                     </div>
@@ -213,29 +218,12 @@
       validateInput(true, form.nomeResponsavel);
     }
 
-    /* idade responsavel */
-    if (form.idadeResponsavel.value < 18){
-      validateInput(false, form.idadeResponsavel);
-      r = false;
-    } else {
-      validateInput(true, form.idadeResponsavel);
-    }
-
     /* rendimentos responsavel */
     if (form.rendimentosResponsavel.value < 0){
       validateInput(false, form.rendimentosResponsavel);
       r = false;
     } else {
       validateInput(true, form.rendimentosResponsavel);
-    }
-
-
-    /* telefone */
-    if (form.telefone.value.length != 9){
-      validateInput(false, form.telefone);
-      r = false;
-    } else {
-      validateInput(true, form.telefone);
     }
 
     /* RSI */

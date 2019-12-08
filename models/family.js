@@ -25,7 +25,7 @@ const createEditFamilyRecord = async (family, models) => {
 };
 
 const calculateScore = async (family, models) => {
-  let score = 1;
+  let score = 0;
 
   const needs = {
     acucar: 1,
@@ -46,58 +46,49 @@ const calculateScore = async (family, models) => {
   const people = await family.getPeople();
 
   people.forEach((famMember) => {
-    if (
-      famMember.idade >= 18
-      && famMember.idade < 65
-      && !famMember.doencaBool
-      && !famMember.deficiente
-    ) score += 0.5;
-    if (famMember.idade >= 18 && famMember.idade < 65 && famMember.deficiente) {
-      score += 0.75;
-      needs.papas += 1;
+    if (famMember.faixaEtaria == "Adulto") {
+      score += 2000;
     }
-    if (famMember.idade >= 65) {
-      score += 0.55;
-      needs.papas += 1;
-    }
-    if (famMember.idade > 12 && famMember.idade < 18) {
-      score += 0.5;
+    if (famMember.faixaEtaria == "Criança") {
+      score += 1500;
+      needs.papas += 2;
       needs.cereais += 1;
     }
-    if (famMember.idade <= 12) {
-      score += 0.75;
+    if (famMember.faixaEtaria == "Idoso") {
+      score += 1500;
+      needs.papas += 1;
+    }
+    if (famMember.faixaEtaria == "Adolescente") {
+      score += 2000;
       needs.cereais += 1;
-      needs.papas += 1;
     }
-    if (famMember.idade < 18 && famMember.deficiente) {
-      score += 1;
-      needs.papas += 1;
-    }
-    if (famMember.rendimentos < 100) score += 0.15;
-    if (famMember.doencaBool) score += 0.25;
-    if (famMember.outros) score += 0.1;
   });
 
-  if (family.habiMauEstado) score += 0.1;
-
-  //
-  // needs.arroz = Math.floor(2.3 * score);
-  // needs.bolachas = Math.floor(1.2 * score);
-  // needs.atum = Math.floor(2.4 * score);
-  // needs.salsichas = Math.floor(1.2 * score);
-  // needs.leguminosas = Math.floor(1.25 * score);
-  // needs.leite = Math.round((5 * score) / 6) * 6;
-  // needs.massa = Math.floor(3.6 * score);
-  // needs.oleo = Math.floor(0.65 * score);
-  // needs.cereais = Math.floor(needs.cereais);
-  // needs.papas = Math.floor(needs.papas);
-
+  needs.arroz = Math.floor((10 * score * 0.2)/1280);
+  needs.bolachas = Math.floor((10 * score * 0.1)/3555);
+  needs.atum = Math.floor((10 * score * 0.025)/365.5);
+  needs.salsichas = Math.floor((10 * score * 0.025)/392.5);
+  needs.leguminosas = Math.floor((10 * score * 0.1)/1385.5);
+  if (score <= 5000) {
+     needs.leite = 6;
+  }
+  if (score > 5000 && score <= 9000) {
+    needs.leite = 12;
+  }
+  if (score > 9000) {
+    needs.leite = 18;
+  }
+  needs.massa = Math.floor((10 * score * 0.3)/3500);
+  needs.oleo = Math.floor((10 * score * 0.05)/8307);
+  needs.cereais = Math.floor(needs.cereais);
+  needs.papas = Math.floor(needs.papas);
+  needs.azeite = Math.floor((10 * score * 0.05)/8840);
 
   return score.toFixed(2);
 };
 
 const calculateNeeds = async (family, models) => {
-  let score = 1;
+  let score = 0;
 
   const needs = {
     acucar: 1,
@@ -118,60 +109,49 @@ const calculateNeeds = async (family, models) => {
   const people = await family.getPeople();
 
   people.forEach((famMember) => {
-    if (
-      famMember.idade >= 18
-      && famMember.idade < 65
-      && !famMember.doencaBool
-      && !famMember.deficiente
-    ) score += 0.5;
-    if (famMember.idade >= 18 && famMember.idade < 65 && famMember.deficiente) {
-      score += 0.75;
-      needs.papas += 1;
+    if (famMember.faixaEtaria == "Adulto") {
+      score += 2000;
     }
-    if (famMember.idade >= 65) {
-      score += 0.55;
-      needs.papas += 1;
-    }
-    if (famMember.idade > 12 && famMember.idade < 18) {
-      score += 0.5;
+    if (famMember.faixaEtaria == "Criança") {
+      score += 1500;
+      needs.papas += 2;
       needs.cereais += 1;
     }
-    if (famMember.idade <= 12) {
-      score += 0.75;
+    if (famMember.faixaEtaria == "Idoso") {
+      score += 1500;
+      needs.papas += 1;
+    }
+    if (famMember.faixaEtaria == "Adolescente") {
+      score += 2000;
       needs.cereais += 1;
-      needs.papas += 1;
     }
-    if (famMember.idade < 18 && famMember.deficiente) {
-      score += 1;
-      needs.papas += 1;
-    }
-    if (famMember.rendimentos < 100) score += 0.15;
-    if (famMember.doencaBool) score += 0.25;
-    if (famMember.outros) score += 0.1;
   });
 
-  if (family.habiMauEstado) score += 0.1;
-
-
-  needs.arroz = Math.floor(2.3 * score);
-  needs.bolachas = Math.floor(1.2 * score);
-  needs.atum = Math.floor(2.4 * score);
-  needs.salsichas = Math.floor(1.2 * score);
-  needs.leguminosas = Math.floor(1.25 * score);
-  needs.leite = Math.round((5 * score) / 6) * 6;
-  needs.massa = Math.floor(3.6 * score);
-  needs.oleo = Math.floor(0.65 * score);
+  needs.arroz = Math.floor((10 * score * 0.2)/1280);
+  needs.bolachas = Math.floor((10 * score * 0.1)/3555);
+  needs.atum = Math.floor((10 * score * 0.025)/365.5);
+  needs.salsichas = Math.floor((10 * score * 0.025)/392.5);
+  needs.leguminosas = Math.floor((10 * score * 0.1)/1385.5);
+  if (score <= 5000) {
+     needs.leite = 6;
+  }
+  if (score > 5000 && score <= 9000) {
+    needs.leite = 12;
+  }
+  if (score > 9000) {
+    needs.leite = 18;
+  }
+  needs.massa = Math.floor((10 * score * 0.3)/3500);
+  needs.oleo = Math.floor((10 * score * 0.05)/8307);
   needs.cereais = Math.floor(needs.cereais);
   needs.papas = Math.floor(needs.papas);
-
+  needs.azeite = Math.floor((10 * score * 0.05)/8840);
 
   return JSON.stringify(needs);
 };
 
 module.exports = (sequelize, DataTypes) => {
-  const Family = sequelize.define(
-    'Family',
-    {
+  const Family = sequelize.define('Family', {
       nomeChefe: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -195,7 +175,7 @@ module.exports = (sequelize, DataTypes) => {
       outroSubsidio: DataTypes.BOOLEAN,
       despHabitacao: DataTypes.INTEGER,
       despMedicacao: DataTypes.INTEGER,
-      despOutros: DataTypes.STRING,
+      despOutros: DataTypes.INTEGER,
       necessidadeEsp: DataTypes.STRING,
       habiMauEstado: DataTypes.BOOLEAN,
       disable: DataTypes.BOOLEAN,

@@ -20,8 +20,17 @@
                     <input  name="name" type="text" class="form-control" id="firstName" placeholder="{{person.name}}" value="{{person.name}}">
                 </div>
                 <div class="form-group">
-                    <label>Idade</label>
-                    <input name="idade" type="number" class="form-control" id="age" placeholder="{{person.idade}}" value="{{person.idade}}">
+                    <label>Data Nascimento</label>
+                    <input name="dataNascimento" type="date" class="form-control" id="dataNascimento" placeholder="{{person.dataNascimento}}" value="{{person.dataNascimento}}">
+                </div>
+                <div class="form-group">
+                    <label>Faixa Etária</label>
+                    <select name="faixaEtaria" type="text" id="faixaEtaria">
+                        <option {{#if_eq person.faixaEtaria 'Criança'}} selected='selected' {{/if_eq}} value ="Criança">Criança</option>
+                        <option {{#if_eq person.faixaEtaria 'Adolescente'}} selected='selected' {{/if_eq}} value ="Adolescente">Adolescente</option>
+                        <option {{#if_eq person.faixaEtaria 'Adulto'}} selected='selected' {{/if_eq}}  value ="Adulto">Adulto</option>
+                        <option {{#if_eq person.faixaEtaria 'Idoso'}} selected='selected' {{/if_eq}}  value ="Idoso">Idoso</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label>Escolaridade</label>

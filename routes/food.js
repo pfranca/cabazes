@@ -43,54 +43,63 @@ router.get('/', (req, res, next) => {
       })
     })
 
+  people.forEach((famMember) => {
+
     const needs = {
-      açucar: 0,
-      aletria: 0,
-      arroz: 0,
-      azeite: 0,
-      bolachas: 0,
-      atum: 0,
-      salsichas: 0,
-      leguminosas: 0,
-      leite: 0,
-      massa: 0,
+      acucar: 1,
+      aletria: 1,
+      arroz: 1,
+      azeite: 1,
+      bolachas: 1,
+      atum: 1,
+      salsichas: 1,
+      leguminosas: 1,
+      leite: 1,
+      massa: 1,
       cereais: 0,
       papas: 0,
-      oleo: 0,
+      oleo: 1,
     };
 
     familiesInEvent.forEach((family) => {
-      let score = 1;
-
-      needs.açucar += 1;
-      needs.aletria += 1;
-      needs.azeite += 1;
-
-      family.People.forEach((famMember) => {
-        if (famMember.idade >= 18 && famMember.idade < 65 && !famMember.doencaBool && !famMember.deficiente) score += 0.5;
-        if (famMember.idade >= 18 && famMember.idade < 65 && famMember.deficiente) { score += 0.75; needs.papas += 1; }
-        if (famMember.idade >= 65) { score += 0.55; needs.papas += 1; }
-        if (famMember.idade > 12 && famMember.idade < 18) { score += 0.5; needs.cereais += 1; }
-        if (famMember.idade <= 12) { score += 0.75; needs.cereais += 1; needs.papas += 1; }
-        if (famMember.idade < 18 && famMember.deficiente) { score += 1; needs.papas += 1; }
-        if (famMember.rendimentos < 100) score += 0.15;
-        if (famMember.doencaBool) score += 0.25;
-        if (famMember.outros) score += 0.1;
+        let score = 0;
+        if (famMember.idade >= 18 && famMember.idade < 65) {
+          score += 2000;
+        }
+        if (famMember.idade <= 12) {
+          score += 1500;
+          needs.papas += 2;
+          needs.cereais += 1;
+        }
+        if (famMember.idade >= 65) {
+          score += 1500;
+          needs.papas += 1;
+        }
+        if (famMember.idade > 12 && famMember.idade < 18) {
+          score += 2000;
+          needs.cereais += 1;
+        }
       });
-      if (family.habiMauEstado) score += 0.1;
 
-      family.score = score.toFixed(2);
-
-      needs.arroz += Math.floor(2.3 * score);
-      needs.bolachas += Math.floor(1.2 * score);
-      needs.atum += Math.floor(2.4 * score);
-      needs.salsichas += Math.floor(1.2 * score);
-      needs.leguminosas += Math.floor(1.25 * score);
-      needs.leite += Math.round((5 * score) / 6) * 6;
-      needs.massa += Math.floor(3.6 * score);
-      needs.oleo += Math.floor(0.65 * score);
+      needs.arroz = Math.floor((10 * score * 0.2)/1280);
+      needs.bolachas = Math.floor((10 * score * 0.1)/3555);
+      needs.atum = Math.floor((10 * score * 0.025)/365.5);
+      needs.salsichas = Math.floor((10 * score * 0.025)/392.5);
+      needs.leguminosas = Math.floor((10 * score * 0.1)/1385.5);
+      if (score <= 5000) {
+         needs.leite = 6;
+      }
+      if (score > 5000 && score <= 9000) {
+        needs.leite = 12;
+      }
+      if (score > 9000) {
+        needs.leite = 18;
+      }
+      needs.massa = Math.floor((10 * score * 0.3)/3500);
+      needs.oleo = Math.floor((10 * score * 0.05)/8307);
       needs.cereais = Math.floor(needs.cereais);
       needs.papas = Math.floor(needs.papas);
+      needs.azeite = Math.floor((10 * score * 0.05)/8840);
     });
    
     const numeroTotalNecessario = Object.keys(needs).reduce((sum, key) => sum + parseFloat(needs[key]), 0);

@@ -11,8 +11,6 @@
     <!-- family info -->
     {{> family-info }}
 
-    
-
     <!-- members list -->
     <div class="card">
         <div class="card-header">
@@ -23,7 +21,8 @@
             {{#each People }}
                 <li id="person{{id}}" class="list-group-item">
                     <b>Nome:</b> {{ name }} &emsp;
-                    <b>Idade:</b> {{ idade }} &emsp;
+                    <b>Data Nascimento:</b> {{ dataNascimento }} &emsp;
+                    <b>Faixa Etária:</b> {{ faixaEtaria }} &emsp;
                     {{#if escolaridade}}<b>Escolaridade:</b> {{escolaridade}} &emsp;{{else}} {{/if}} 
                     {{#if rendimentos}}<b>Rendimentos:</b> {{rendimentos}} &emsp; {{/if}}
                     {{#if doencaBool}}<b>Doencas:</b> {{doencaString}} &emsp; {{/if}}

@@ -73,17 +73,22 @@ router.post('/imprimirPdf', (req, res, next) => {
 })
 
 router.post('/delivered', (req, res, next) => {
+
   let ids = req.body.idFam;
   let eventId = req.body.eventId;
 
+  //check if it passed a string or an array, if it's a string it converts to an array
+  if (typeof ids === 'string' || ids instanceof String)
+    ids=[ids];
+
   for(let id of ids) {
+    console.log(id);
     models.Family.findById(id, {
       include: [{ all: true }],
     })
     .then((family) => {
-      for( let delivery of family.Deliveries) {
+      for(let delivery of family.Deliveries) {
         if(delivery.done == 0 && delivery.eventId == eventId){
-  
           models.Delivery.findById(delivery.id).then( deliveryObj => {
             deliveryObj.update({
               done : 1,

@@ -33,7 +33,7 @@
               <div class="row" style="margin-bottom:1em;">
                 <div class="col-12">
                   <div class="check_all">
-                    <i class="btn btn-secondary" style="float:right;" onclick="{{#each ongoing.Deliveries}} changeCheck('check_fam_{{familyId.id}}');{{/each}}">Selecionar Todas</i>
+                    <i class="btn btn-secondary" style="float:right;" onclick="{{#each ongoing.Deliveries}} changeCheck('check_fam_{{familyId.id}}', '{{familyId.morada}}');{{/each}}">Selecionar Todas</i>
                   </div>
                 </div>
               </div>
@@ -41,13 +41,12 @@
                 <input type="number" style="display:none" name="eventId" value="{{ongoing.id}}">
               {{#each ongoing.Deliveries}}
                 <div id="deliveries-list">
-
                   <div class="card" onclick="changeCheck('check_fam_{{familyId.id}}', '{{familyId.morada}}');">
                     <div class="card-header" style="padding:10px;">
                       <div class="row">
                         <div class="col-sm-11">
                           <div class="family-name">
-                            <button class="btn btn-link" onclick="location.href='/families/{{familyId.id}}';"> Família {{ familyId.nomeChefe }} </button>
+                            <button class="btn btn-link" data-toggle="tab" onclick="location.href='families/{{familyId.id}}';"> Família {{ familyId.nomeChefe }} </button>
                             {{#if done}}
                               <i class="fas fa-check" style="color: #7CFC00;"></i>
                             {{else}}
@@ -57,7 +56,7 @@
                         </div>
                         <div class="col-sm-1">
                             <div class="select_checkBox">
-                              <input class="form-control form-control-sm checkbox-custom-label dashFam" id="check_fam_{{familyId.id}}" onclick="changeCheck('check_fam_{{familyId.id}}');" type="checkbox" name="idFam" value="{{familyId.id}}">
+                              <input class="form-control form-control-sm checkbox-custom-label dashFam" id="check_fam_{{familyId.id}}" onclick="changeCheck('check_fam_{{familyId.id}}', '{{familyId.morada}}');" type="checkbox" name="idFam" value="{{familyId.id}}">
                             </div>
                         </div>
                       </div>
@@ -67,11 +66,8 @@
               {{/each}}
             </div>
               <div class="row" style="float:right;">
-
                   <input class="btn btn-success" type="submit" id="deliveredBtn" style="margin:0.4em;" formaction="/delivered" value="Entregue">
-
                   <input class="btn btn-primary" type="submit" id="imprimirPdfBtn" style="margin:0.4em;" formaction="/imprimirPdf" value="Exportar .PDF">
-
                   <input class="btn btn-primary" type="button" id="directions-button" style="margin:0.4em;" onclick="getDirections();" value="Direções para Entregar">
               </div>
               </form>
@@ -102,7 +98,6 @@ let selectedFamilies = {}
 
 function changeCheck(id, morada){
     let check = document.getElementById(id);
-
     if(check.checked == true){
       delete selectedFamilies[id];
       check.checked = false;

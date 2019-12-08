@@ -7,11 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: false,
     },
     finishedAt: DataTypes.DATE,
-  }, {
-    indexes: [
-      { type: 'FULLTEXT', name: 'name_txt_index', fields: ['eventName'] },
-    ],
-  });
+  }, {});
 
   Event.associate = (models) => {
     // associations can be defined here
