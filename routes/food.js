@@ -81,11 +81,11 @@ router.get('/', (req, res, next) => {
         }
       });
 
-      needs.arroz = Math.floor((10 * score * 0.2)/1280);
-      needs.bolachas = Math.floor((10 * score * 0.1)/3555);
-      needs.atum = Math.floor((10 * score * 0.025)/365.5);
-      needs.salsichas = Math.floor((10 * score * 0.025)/392.5);
-      needs.leguminosas = Math.floor((10 * score * 0.1)/1385.5);
+      needs.arroz = Math.ceil((10 * score * 0.2)/1280);
+      needs.bolachas = Math.ceil((10 * score * 0.1)/3555);
+      needs.atum = Math.ceil((10 * score * 0.025)/365.5);
+      needs.salsichas = Math.ceil((10 * score * 0.025)/392.5);
+      needs.leguminosas = Math.ceil((10 * score * 0.1)/1385.5);
       if (score <= 5000) {
          needs.leite = 6;
       }
@@ -95,11 +95,11 @@ router.get('/', (req, res, next) => {
       if (score > 9000) {
         needs.leite = 18;
       }
-      needs.massa = Math.floor((10 * score * 0.3)/3500);
-      needs.oleo = Math.floor((10 * score * 0.05)/8307);
-      needs.cereais = Math.floor(needs.cereais);
-      needs.papas = Math.floor(needs.papas);
-      needs.azeite = Math.floor((10 * score * 0.05)/8840);
+      needs.massa = Math.ceil((10 * score * 0.3)/3500);
+      needs.oleo = Math.ceil((10 * score * 0.05)/8307);
+      needs.cereais = Math.ceil(needs.cereais);
+      needs.papas = Math.ceil(needs.papas);
+      needs.azeite = Math.ceil((10 * score * 0.05)/8840);
     });
    
     const numeroTotalNecessario = Object.keys(needs).reduce((sum, key) => sum + parseFloat(needs[key]), 0);
