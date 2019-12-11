@@ -2,9 +2,23 @@
     background-color: #592638;
 }
 
+.navbar-brand {
+    width: 80%;
+}
+
+.card {
+    text-align: center;
+}
+
+.btn-link {
+    font-weight: 400;
+    white-space: pre-line;
+    color: #007bff;
+    background-color: transparent;
+}
+
 img#logo_rotaract.img-responsive {
     width: 15%;
-    height: auto;
 }
 
 div#lateral_menu.col-ms-3{
