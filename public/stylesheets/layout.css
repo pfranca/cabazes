@@ -6,15 +6,16 @@
     width: 80%;
 }
 
-.card {
+#loginCard {
+    text-align: center;
+}
+
+#dashboardCard {
     text-align: center;
 }
 
 .btn-link {
-    font-weight: 400;
-    white-space: pre-line;
-    color: #007bff;
-    background-color: transparent;
+    white-space: normal;
 }
 
 img#logo_rotaract.img-responsive {
@@ -90,6 +91,10 @@ footer {
     img#logo_rotaract.img-responsive {
         width: 50%;
         height: auto;
+    }
+
+    #familiesCard{
+        text-align: center;
     }
     
     #lateral_menu { 
